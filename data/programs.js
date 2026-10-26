@@ -183,7 +183,7 @@ const PROGRAMS = {
     ],
     Chemical: [
         {
-            years: [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
+            years: [2019, 2020, 2021, 2022, 2023, 2024, 2025],
             semesters: [
                 {
                     title: '1st Semester (Required)', courses: [
@@ -228,10 +228,60 @@ const PROGRAMS = {
                 },
             ],
         },
+        {
+            years: [2026],
+            semesters: [
+                {
+                    title: '1st Semester (Required)', courses: [
+                        'CEN100', 'CEN199', 'CHY102', 'MTH140', 'MTH141', 'PCS211'
+                    ]
+                },
+                {
+                    title: '2nd Semester (Required)', courses: [
+                        'CHE200', 'CHY211', 'CPS125', 'ECN801', 'MTH240', 'PCS125'
+                    ]
+                },
+                {
+                    title: '3rd Semester (Required)', courses: [
+                        'CHE204', 'CHE217', 'CHY224', 'EES512', 'MTH425'
+                    ]
+                },
+                {
+                    title: '4th Semester (Required)', courses: [
+                        'CHE214', 'CHE215', 'CHE220', 'CHY203', 'CMN432'
+                    ]
+                },
+                {
+                    title: '5th Semester (Required)', courses: [
+                        'CHE307', 'CHE308', 'CHE318', 'CHE331', 'CHE338'
+                    ]
+                },
+                {
+                    title: '5th Semester (Liberal Studies)', courses: [
+                        'ENG503', 'GEO702', 'HST701', 'PHL709', 'POL507'
+                    ]
+                },
+                {
+                    title: '6th Semester (Required)', courses: [
+                        'CHE309', 'CHE312', 'CHE315', 'CHE319', 'CHE617'
+                    ]
+                },
+                {
+                    title: '7th Semester (Required)', courses: [
+                        'CHE44A', 'CHE413', 'CHE415', 'CHE430'
+                    ]
+                },
+                {
+                    title: '8th Semester (Required & Core Electives)', courses: [
+                        'CEN800', 'CHE44B', 'CHE___'
+                    ]
+                },
+            ],
+        },
     ],
     Civil: [
         {
-            years: [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
+            years: [2019, 2020, 2021, 2022, 2023, 2024, 2025],
             semesters: [
                 {
                     title: '1st Semester (Required)', courses: [
@@ -280,10 +330,117 @@ const PROGRAMS = {
                 },
             ],
         },
+        {
+            years: [2026],
+            semesters: [
+                {
+                    title: '1st Semester (Required)', courses: [
+                        'CEN100', 'CEN199', 'CHY102', 'MTH140', 'MTH141', 'PCS211'
+                    ]
+                },
+                {
+                    title: '2nd Semester (Required)', courses: [
+                        'CPS125', 'CVL207', 'ECN801', 'MTH240', 'MTL200', 'PCS125'
+                    ]
+                },
+                {
+                    title: '3rd Semester (Required)', courses: [
+                        'CVL320', 'CVL323', 'CVL405', 'MEC522', 'MTH425'
+                    ]
+                },
+                {
+                    title: '4th Semester (Required)', courses: [
+                        'CMN432', 'CVL316', 'CVL420', 'CVL423', 'CVL434', 'CVL502'
+                    ]
+                },
+                {
+                    title: '5th Semester (Required)', courses: [
+                        'CVL352', 'CVL400', 'CVL500', 'CVL533', 'MTH510'
+                    ]
+                },
+                {
+                    title: '6th Semester (Required)', courses: [
+                        'CVL354', 'CVL602', 'CVL609', 'CVL735', 'CVL742'
+                    ]
+                },
+                {
+                    title: '7th Semester (Required / Streams)', courses: [
+                        'CVL650', 'CVL71A', 'CVL72A'
+                    ]
+                },
+                {
+                    title: '7th & 8th Semester (Core Electives / Streams)', courses: [
+                        'CVL903', 'CVL920', 'CVL902', 'CVL910', 'CVL901', 'CVL914'
+                    ]
+                },
+                {
+                    title: '7th Semester (Liberal Studies)', courses: [
+                        'ENG503', 'GEO702', 'HST701', 'PHL709', 'POL507'
+                    ]
+                },
+                {
+                    title: '8th Semester (Required & Notes)', courses: [
+                        'CEN800', 'CVL300', 'CVL736', 'CVL71B', 'CVL72B'
+                    ]
+                },
+            ],
+        },
+    ],
+    'Civil (Structural Option)': [
+        {
+            years: [2026],
+            semesters: [
+                {
+                    title: '1st Semester (Required)', courses: [
+                        'CEN100', 'CEN199', 'CHY102', 'MTH140', 'MTH141', 'PCS211'
+                    ]
+                },
+                {
+                    title: '2nd Semester (Required)', courses: [
+                        'CPS125', 'CVL207', 'ECN801', 'MTH240', 'MTL200', 'PCS125'
+                    ]
+                },
+                {
+                    title: '3rd Semester (Required)', courses: [
+                        'CVL320', 'CVL323', 'CVL405', 'MEC522', 'MTH425'
+                    ]
+                },
+                {
+                    title: '4th Semester (Required)', courses: [
+                        'CMN432', 'CVL316', 'CVL420', 'CVL423', 'CVL434', 'CVL502'
+                    ]
+                },
+                {
+                    title: '5th Semester (Required)', courses: [
+                        'CVL313', 'CVL500', 'CVL533', 'CVL600', 'MTH510'
+                    ]
+                },
+                {
+                    title: '6th Semester (Required)', courses: [
+                        'CVL312', 'CVL410', 'CVL411', 'CVL609', 'CVL742'
+                    ]
+                },
+                {
+                    title: '7th Semester (Required)', courses: [
+                        'CVL70A', 'CVL904', 'CVL905', 'CVL908'
+                    ]
+                },
+                {
+                    title: '7th Semester (Liberal Studies)', courses: [
+                        'ENG503', 'GEO702', 'HST701', 'PHL709', 'POL507'
+                    ]
+                },
+                {
+                    title: '8th Semester (Required)', courses: [
+                        'CEN800', 'CVL70B', 'CVL300', 'CVL906', 'CVL914'
+                    ]
+                },
+            ],
+        },
     ],
     Computer: [
         {
-            years: [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
+            years: [2019, 2020, 2021, 2022, 2023, 2024, 2025],
             semesters: [
                 {
                     title: '1st Semester (Required)', courses: [
@@ -323,7 +480,120 @@ const PROGRAMS = {
                 },
                 {
                     title: '8th Semester (Capstone & Core)', courses: [
-                        'CEN800', 'COE70B', 'CORE_ELECTIVES'
+                        'CEN800', 'COE70B', 'CORE_ELECTIVES (see Table II)'
+                    ]
+                },
+            ],
+        },
+        {
+            years: [2026],
+            semesters: [
+                {
+                    title: '1st Semester (Required)', courses: [
+                        'CEN100', 'CEN199', 'CHY102', 'MTH140', 'MTH141', 'PCS211'
+                    ]
+                },
+                {
+                    title: '2nd Semester (Required)', courses: [
+                        'CPS188', 'ECN801', 'ELE202', 'MTH240', 'PCS125'
+                    ]
+                },
+                {
+                    title: '3rd Semester (Required)', courses: [
+                        'COE318', 'COE328', 'ELE302', 'MTH425', 'PCS224'
+                    ]
+                },
+                {
+                    title: '4th Semester (Required)', courses: [
+                        'CMN432', 'COE428', 'COE528', 'ELE404', 'MTH314'
+                    ]
+                },
+                {
+                    title: '5th Semester (Required)', courses: [
+                        'COE501', 'COE538', 'ELE532', 'MEC511', 'MTH514'
+                    ]
+                },
+                {
+                    title: '6th Semester (Required & Group)', courses: [
+                        'COE608', 'COE628', 'ELE632', 'ELE635 (group option)', 'ELE639 (group option)',
+                        'CPS688 (group option)'
+                    ]
+                },
+                {
+                    title: '7th Semester (Required)', courses: [
+                        'COE70A'
+                    ]
+                },
+                {
+                    title: '7th Semester (Liberal Studies)', courses: [
+                        'ENG503', 'GEO702', 'HST701', 'PHL709', 'POL507'
+                    ]
+                },
+                {
+                    title: '7th Semester (Core Electives)', courses: [
+                        'CORE_ELECTIVES (see Table I)'
+                    ]
+                },
+                {
+                    title: '8th Semester (Capstone & Core)', courses: [
+                        'CEN800', 'COE70B', 'CORE_ELECTIVES (see Table II)'
+                    ]
+                },
+            ],
+        },
+    ],
+    'Computer (Software Engineering Option)': [
+        {
+            years: [2026],
+            semesters: [
+                {
+                    title: '1st Semester (Required)', courses: [
+                        'CEN100', 'CEN199', 'CHY102', 'MTH140', 'MTH141', 'PCS211'
+                    ]
+                },
+                {
+                    title: '2nd Semester (Required)', courses: [
+                        'CPS188', 'ECN801', 'ELE202', 'MTH240', 'PCS125'
+                    ]
+                },
+                {
+                    title: '3rd Semester (Required)', courses: [
+                        'COE318', 'COE328', 'ELE302', 'MTH425', 'PCS224'
+                    ]
+                },
+                {
+                    title: '4th Semester (Required)', courses: [
+                        'CMN432', 'COE428', 'COE528', 'ELE404', 'MTH314'
+                    ]
+                },
+                {
+                    title: '5th Semester (Required)', courses: [
+                        'CPS510', 'COE538', 'ELE532', 'MEC511', 'MTH514'
+                    ]
+                },
+                {
+                    title: '6th Semester (Required)', courses: [
+                        'COE608', 'COE628', 'CPS688', 'COE691', 'COE692'
+                    ]
+                },
+                {
+                    title: '7th Semester (Required)', courses: [
+                        'COE70A', 'COE768', 'CPS714'
+                    ]
+                },
+                {
+                    title: '7th Semester (Liberal Studies)', courses: [
+                        'ENG503', 'GEO702', 'HST701', 'PHL709', 'POL507'
+                    ]
+                },
+                {
+                    title: '7th Semester (Core Electives)', courses: [
+                        'CORE_ELECTIVES (see Table III)'
+                    ]
+                },
+                {
+                    title: '8th Semester (Capstone & Core)', courses: [
+                        'CEN800', 'COE70B', 'CORE_ELECTIVES (see Table IV)'
                     ]
                 },
             ],
@@ -331,7 +601,7 @@ const PROGRAMS = {
     ],
     Electrical: [
         {
-            years: [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
+            years: [2019, 2020, 2021, 2022, 2023, 2024, 2025],
             semesters: [
                 {
                     title: '1st Semester (Required)', courses: [
@@ -370,7 +640,62 @@ const PROGRAMS = {
                 },
                 {
                     title: '8th Semester (Capstone & Core)', courses: [
-                        'CEN800', 'ELE70B', 'CORE_ELECTIVES'
+                        'CEN800', 'ELE70B', 'CORE_ELECTIVES (see Table II)'
+                    ]
+                },
+            ],
+        },
+        {
+            years: [2026],
+            semesters: [
+                {
+                    title: '1st Semester (Required)', courses: [
+                        'CEN100', 'CEN199', 'CHY102', 'MTH140', 'MTH141', 'PCS211'
+                    ]
+                },
+                {
+                    title: '2nd Semester (Required)', courses: [
+                        'CPS188', 'ECN801', 'ELE202', 'MTH240', 'PCS125'
+                    ]
+                },
+                {
+                    title: '3rd Semester (Required)', courses: [
+                        'COE318', 'COE328', 'ELE302', 'MTH425', 'PCS224'
+                    ]
+                },
+                {
+                    title: '4th Semester (Required)', courses: [
+                        'CMN432', 'COE428', 'ELE401', 'ELE404', 'MTH314'
+                    ]
+                },
+                {
+                    title: '5th Semester (Required)', courses: [
+                        'COE538', 'ELE531', 'ELE532', 'ELE754', 'MTH514'
+                    ]
+                },
+                {
+                    title: '6th Semester (Required)', courses: [
+                        'ELE632', 'ELE635', 'ELE637', 'ELE639', 'MEC511'
+                    ]
+                },
+                {
+                    title: '7th Semester (Capstone)', courses: [
+                        'ELE70A'
+                    ]
+                },
+                {
+                    title: '7th Semester (Liberal Studies)', courses: [
+                        'ENG503', 'GEO702', 'HST701', 'PHL709', 'POL507'
+                    ]
+                },
+                {
+                    title: '7th Semester (Core Electives)', courses: [
+                        'CORE_ELECTIVES (see Table I)'
+                    ]
+                },
+                {
+                    title: '8th Semester (Capstone & Core)', courses: [
+                        'CEN800', 'ELE70B', 'CORE_ELECTIVES (see Table II)'
                     ]
                 },
             ],
@@ -402,7 +727,7 @@ const PROGRAMS = {
                 },
                 {
                     title: '5th Semester (Required)', courses: [
-                        'IND303', 'IND405', 'IND508', 'IND606', 'MEC516', 'MTH510'
+                        'IND303', 'IND405', 'IND508', 'IND605', 'MEC516', 'MTH510'
                     ]
                 },
                 {
@@ -421,8 +746,76 @@ const PROGRAMS = {
                     ]
                 },
                 {
+                    title: '7th Semester (Liberal Studies)', courses: [
+                        'ENG503', 'GEO702', 'HST701', 'PHL709', 'POL507'
+                    ]
+                },
+                {
                     title: '8th Semester (Required & Group 1 Options)', courses: [
                         'CEN800', 'IND70B', 'CEN810', 'IND719', 'IND816', 'IND832', 'IND833'
+                    ]
+                },
+            ],
+        },
+    ],
+    Mechanical: [
+        {
+            years: [2026],
+            semesters: [
+                {
+                    title: '1st Semester (Required)', courses: [
+                        'CEN100', 'CEN199', 'CHY102', 'MTH140', 'MTH141', 'PCS211'
+                    ]
+                },
+                {
+                    title: '2nd Semester (Required)', courses: [
+                        'CPS188', 'ECN801', 'MEC222', 'MTH240', 'MTL200', 'PCS125'
+                    ]
+                },
+                {
+                    title: '3rd Semester (Required)', courses: [
+                        'CMN432', 'MEC323', 'MEC325', 'MTH425', 'PCS213'
+                    ]
+                },
+                {
+                    title: '4th Semester (Required)', courses: [
+                        'EES512', 'MEC309', 'MEC311', 'MEC322', 'MTH410'
+                    ]
+                },
+                {
+                    title: '5th Semester (Required)', courses: [
+                        'EES612', 'MEC430', 'MEC514', 'MEC516', 'MTH510', 'MTL300'
+                    ]
+                },
+                {
+                    title: '6th Semester (Required)', courses: [
+                        'MEC411', 'MEC613', 'MEC616', 'MEC701', 'MEC709', 'MEC721'
+                    ]
+                },
+                {
+                    title: '7th Semester (Required Group)', courses: [
+                        'MEC722 (group option)', 'MEC723 (group option)', 'MEC734 (group option)'
+                    ]
+                },
+                {
+                    title: '7th Semester (Liberal Studies)', courses: [
+                        'ENG503', 'GEO702', 'HST701', 'PHL709', 'POL507'
+                    ]
+                },
+                {
+                    title: '7th Semester (Core Electives)', courses: [
+                        'MEC431', 'MEC531', 'MEC617', 'MEC626', 'MEC713', 'MEC740', 'MEC751', 'MEC813',
+                        'MEC817', 'MTL700'
+                    ]
+                },
+                {
+                    title: '8th Semester (Required)', courses: [
+                        'CEN800', 'MEC825'
+                    ]
+                },
+                {
+                    title: '8th Semester (Core Electives)', courses: [
+                        'CEN810', 'MEC809', 'MEC810', 'MEC811', 'MEC816', 'MEC832', 'MEC850'
                     ]
                 },
             ],
@@ -470,6 +863,53 @@ const PROGRAMS = {
                 {
                     title: '8th Semester (Capstone & Options)', courses: [
                         'CEN800', 'MTE70B', 'MTE801', 'MTE811', 'MTE812', 'MTE819', 'MTE882', 'MTE888'
+                    ]
+                },
+            ],
+        },
+    ],
+    Undeclared: [
+        {
+            years: [2026],
+            semesters: [
+                {
+                    title: '1st Semester (Required)', courses: [
+                        'CEN100', 'CEN199', 'CHY102', 'MTH140', 'MTH141', 'PCS211'
+                    ]
+                },
+                {
+                    title: '2nd Semester (Required)', courses: [
+                        'ECN801', 'MTH240', 'PCS125'
+                    ]
+                },
+                {
+                    title: '2nd Semester (Aerospace Group)', courses: [
+                        'AER222', 'CPS125', 'MTL200'
+                    ]
+                },
+                {
+                    title: '2nd Semester (Biomedical Group)', courses: [
+                        'BME100', 'CPS188', 'ELE202'
+                    ]
+                },
+                {
+                    title: '2nd Semester (Chemical Group)', courses: [
+                        'CHE200', 'CHY211', 'CPS125'
+                    ]
+                },
+                {
+                    title: '2nd Semester (Civil Group)', courses: [
+                        'CPS125', 'CVL207', 'MTL200'
+                    ]
+                },
+                {
+                    title: '2nd Semester (Computer & Electrical Group)', courses: [
+                        'CPS188', 'ELE202'
+                    ]
+                },
+                {
+                    title: '2nd Semester (Industrial, Mechanical & Mechatronics Group)', courses: [
+                        'CPS188', 'MEC222', 'MTL200'
                     ]
                 },
             ],
