@@ -9,16 +9,16 @@
 const CURRICULA_DIR = 'data/curricula/';
 const MANIFEST_URL = CURRICULA_DIR + 'index.json';
 
-const YEARS = ['2026','2025','2024','2023','2022','2021','2020','2019'];
+const YEARS = ['2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019'];
 const DEFAULT_YEAR = '2026';
 
 const PROGRAM_PLACEHOLDER = '-- Choose your program --';
 const YEAR_PLACEHOLDER = '-- Select admit year --';
 
 const CHECKLIST_INTRO =
-  '<h2>Curriculum Required Courses</h2>' +
-  '<p>Select all courses completed with a D- or higher, or approved credit.</p>' +
-  '<p class="muted">Not sure if you’ve ever been issued a credit and/or Course Substitution/Directive? Refer to your Advisement Report or reach out to your program department.</p>';
+    '<h2>Curriculum Required Courses</h2>' +
+    '<p>Select all courses completed with a D- or higher, or approved credit.</p>' +
+    '<p class="muted">Not sure if you’ve ever been issued a credit and/or Course Substitution/Directive? Refer to your Advisement Report or reach out to your program department.</p>';
 
 // Loaded curricula keyed by "Program:Year".
 const curriculumMap = {};
@@ -30,167 +30,167 @@ let manifest = null;
 
 // Merge the embedded bundle (if it loaded) into curriculumMap.
 // Returns true when the bundle was present.
-function mergeEmbeddedCurricula(){
-  if(typeof embeddedCurricula !== 'object' || embeddedCurricula === null) return false;
-  const keys = Object.keys(embeddedCurricula);
-  keys.forEach(k => { curriculumMap[k] = embeddedCurricula[k]; });
-  console.log('Merged embedded curricula keys:', keys.length);
-  setDebug('Using embedded curricula (' + keys.length + ' entries)');
-  return true;
+function mergeEmbeddedCurricula() {
+    if (typeof embeddedCurricula !== 'object' || embeddedCurricula === null) return false;
+    const keys = Object.keys(embeddedCurricula);
+    keys.forEach(k => { curriculumMap[k] = embeddedCurricula[k]; });
+    console.log('Merged embedded curricula keys:', keys.length);
+    setDebug('Using embedded curricula (' + keys.length + ' entries)');
+    return true;
 }
 
 // Build a manifest from the keys in curriculumMap (used when the bundle is
 // present, so the dropdowns work without index.json).
-function manifestFromCurriculumMap(){
-  const yearsByProgram = {};
-  Object.keys(curriculumMap).forEach(k => {
-    const [program, year] = k.split(':');
-    (yearsByProgram[program] = yearsByProgram[program] || new Set()).add(year);
-  });
-  return Object.keys(yearsByProgram).sort().map(program => ({
-    program,
-    years: Array.from(yearsByProgram[program]).sort().reverse()
-  }));
+function manifestFromCurriculumMap() {
+    const yearsByProgram = {};
+    Object.keys(curriculumMap).forEach(k => {
+        const [program, year] = k.split(':');
+        (yearsByProgram[program] = yearsByProgram[program] || new Set()).add(year);
+    });
+    return Object.keys(yearsByProgram).sort().map(program => ({
+        program,
+        years: Array.from(yearsByProgram[program]).sort().reverse()
+    }));
 }
 
-async function loadManifest(){
-  try{
-    const res = await fetch(MANIFEST_URL);
-    if(!res.ok) return null;
-    return await res.json();
-  } catch(e){
-    console.warn('Could not load index.json manifest', e);
-    return null;
-  }
+async function loadManifest() {
+    try {
+        const res = await fetch(MANIFEST_URL);
+        if (!res.ok) return null;
+        return await res.json();
+    } catch (e) {
+        console.warn('Could not load index.json manifest', e);
+        return null;
+    }
 }
 
-function applyManifest(man){
-  manifest = man;
-  populateProgramSelect(man);
+function applyManifest(man) {
+    manifest = man;
+    populateProgramSelect(man);
 }
 
-function populateProgramSelect(man){
-  const programSel = byId('programSelect');
-  programSel.innerHTML = '';
-  programSel.appendChild(new Option(PROGRAM_PLACEHOLDER, ''));
-  man.forEach(entry => {
-    const label = entry.program + (entry.alias ? ' (' + entry.alias + ')' : '');
-    programSel.appendChild(new Option(label, entry.program));
-  });
+function populateProgramSelect(man) {
+    const programSel = byId('programSelect');
+    programSel.innerHTML = '';
+    programSel.appendChild(new Option(PROGRAM_PLACEHOLDER, ''));
+    man.forEach(entry => {
+        const label = entry.program + (entry.alias ? ' (' + entry.alias + ')' : '');
+        programSel.appendChild(new Option(label, entry.program));
+    });
 
-  fillSelect(byId('admitYearSelect'), YEAR_PLACEHOLDER, YEARS);
-  byId('admitYearSelect').value = DEFAULT_YEAR;
+    fillSelect(byId('admitYearSelect'), YEAR_PLACEHOLDER, YEARS);
+    byId('admitYearSelect').value = DEFAULT_YEAR;
 }
 
 // Limit the admit-year dropdown to the years available for `program`.
-function updateAdmitYearsForProgram(program){
-  const yearSel = byId('admitYearSelect');
-  if(!manifest || !program){
-    fillSelect(yearSel, YEAR_PLACEHOLDER, YEARS);
-    yearSel.value = DEFAULT_YEAR;
-    return;
-  }
-  const entry = manifest.find(m => m.program === program);
-  if(!entry){
-    fillSelect(yearSel, YEAR_PLACEHOLDER, []);
-    return;
-  }
-  fillSelect(yearSel, YEAR_PLACEHOLDER, entry.years);
-  yearSel.value = entry.years.includes(DEFAULT_YEAR) ? DEFAULT_YEAR : (entry.years[0] || '');
+function updateAdmitYearsForProgram(program) {
+    const yearSel = byId('admitYearSelect');
+    if (!manifest || !program) {
+        fillSelect(yearSel, YEAR_PLACEHOLDER, YEARS);
+        yearSel.value = DEFAULT_YEAR;
+        return;
+    }
+    const entry = manifest.find(m => m.program === program);
+    if (!entry) {
+        fillSelect(yearSel, YEAR_PLACEHOLDER, []);
+        return;
+    }
+    fillSelect(yearSel, YEAR_PLACEHOLDER, entry.years);
+    yearSel.value = entry.years.includes(DEFAULT_YEAR) ? DEFAULT_YEAR : (entry.years[0] || '');
 }
 
 // Fetch one curriculum JSON file. Returns the parsed array or null.
-async function fetchCurriculumFile(program, year){
-  try{
-    const res = await fetch(`${CURRICULA_DIR}${program}-${year}.json`);
-    if(!res.ok) return null;
-    return await res.json();
-  } catch(e){
-    return null;
-  }
+async function fetchCurriculumFile(program, year) {
+    try {
+        const res = await fetch(`${CURRICULA_DIR}${program}-${year}.json`);
+        if (!res.ok) return null;
+        return await res.json();
+    } catch (e) {
+        return null;
+    }
 }
 
 // Find the curriculum for program/year, falling back through YEARS when the
 // exact year is missing. Fetched files are cached in curriculumMap.
-async function getClosestCurriculum(program, admitYear){
-  const tryYears = [admitYear].concat(YEARS.filter(y => y !== String(admitYear)));
-  for(const year of tryYears){
-    const key = program + ':' + year;
-    if(curriculumMap[key]) return { key, mapping: curriculumMap[key] };
-    const json = await fetchCurriculumFile(program, year);
-    if(json){
-      curriculumMap[key] = json;
-      return { key, mapping: json };
+async function getClosestCurriculum(program, admitYear) {
+    const tryYears = [admitYear].concat(YEARS.filter(y => y !== String(admitYear)));
+    for (const year of tryYears) {
+        const key = program + ':' + year;
+        if (curriculumMap[key]) return { key, mapping: curriculumMap[key] };
+        const json = await fetchCurriculumFile(program, year);
+        if (json) {
+            curriculumMap[key] = json;
+            return { key, mapping: json };
+        }
     }
-  }
-  return null;
+    return null;
 }
 
-function curriculumChecklistHtml(groups){
-  let html = CHECKLIST_INTRO;
-  groups.forEach(group => {
-    html += '<h3 class="group-title">' + group.title + '</h3>';
-    html += '<div class="course-grid">';
-    group.courses.forEach(c => {
-      const title = c.title ? ' ' + c.title : '';
-      html += '<label><input type="checkbox" value="' + c.code + '"> ' + c.code + title + '</label>';
+function curriculumChecklistHtml(groups) {
+    let html = CHECKLIST_INTRO;
+    groups.forEach(group => {
+        html += '<h3 class="group-title">' + group.title + '</h3>';
+        html += '<div class="course-grid">';
+        group.courses.forEach(c => {
+            const title = c.title ? ' ' + c.title : '';
+            html += '<label><input type="checkbox" value="' + c.code + '"> ' + c.code + title + '</label>';
+        });
+        html += '</div>';
     });
-    html += '</div>';
-  });
-  html += '<div class="button-row"><button onclick="calculateEligibility()">Calculate Spring/Summer Eligibility</button></div>';
-  return html;
+    html += '<div class="button-row"><button onclick="calculateEligibility()">Calculate Spring/Summer Eligibility</button></div>';
+    return html;
 }
 
 // Render the checklist for program/year into Step 3.
 // Returns false when no curriculum could be found.
-async function renderCurriculumIfAvailable(program, admitYear){
-  if(!program || !admitYear) return false;
-  const found = await getClosestCurriculum(program, admitYear);
-  if(!found) return false;
-  console.log('rendering curriculum using key:', found.key);
-  setDebug('Rendering: ' + found.key);
-  byId('step3').innerHTML = curriculumChecklistHtml(found.mapping);
-  return true;
+async function renderCurriculumIfAvailable(program, admitYear) {
+    if (!program || !admitYear) return false;
+    const found = await getClosestCurriculum(program, admitYear);
+    if (!found) return false;
+    console.log('rendering curriculum using key:', found.key);
+    setDebug('Rendering: ' + found.key);
+    byId('step3').innerHTML = curriculumChecklistHtml(found.mapping);
+    return true;
 }
 
-function renderCurriculumNotFound(program, admitYear){
-  const available = manifest.find(m => m.program === program);
-  let msg = '<div class="warning">No curriculum file was found for ' + program + ' (' + admitYear + ').';
-  if(available){
-    msg += '<br>Available admit years for this program: ' + available.years.join(', ') + '.</div>';
-  } else {
-    msg += '<br>This program has no curriculum files listed in the manifest.</div>';
-  }
-  byId('step3').innerHTML = '<h2>Curriculum Not Found</h2>' + msg +
-    '<div class="button-row"><button onclick="window.location.reload()">Retry</button></div>';
-  setDebug('No curriculum file for ' + program + ':' + admitYear);
+function renderCurriculumNotFound(program, admitYear) {
+    const available = manifest.find(m => m.program === program);
+    let msg = '<div class="warning">No curriculum file was found for ' + program + ' (' + admitYear + ').';
+    if (available) {
+        msg += '<br>Available admit years for this program: ' + available.years.join(', ') + '.</div>';
+    } else {
+        msg += '<br>This program has no curriculum files listed in the manifest.</div>';
+    }
+    byId('step3').innerHTML = '<h2>Curriculum Not Found</h2>' + msg +
+        '<div class="button-row"><button onclick="window.location.reload()">Retry</button></div>';
+    setDebug('No curriculum file for ' + program + ':' + admitYear);
 }
 
 // Shown when neither the bundle nor index.json could be loaded.
-function showManifestWarning(){
-  const banner = document.createElement('div');
-  banner.id = 'manifestWarning';
-  banner.className = 'manifest-warning';
-  banner.innerHTML = '<strong>Notice:</strong> The planner could not load curriculum files dynamically. If you opened this file directly (file://), your browser blocks local fetch requests. To load the JSON files, serve this folder over HTTP (see README.md).';
-  const layout = document.querySelector('.layout') || document.body;
-  layout.parentNode.insertBefore(banner, layout);
+function showManifestWarning() {
+    const banner = document.createElement('div');
+    banner.id = 'manifestWarning';
+    banner.className = 'manifest-warning';
+    banner.innerHTML = '<strong>Notice:</strong> The planner could not load curriculum files dynamically. If you opened this file directly (file://), your browser blocks local fetch requests. To load the JSON files, serve this folder over HTTP (see README.md).';
+    const layout = document.querySelector('.layout') || document.body;
+    layout.parentNode.insertBefore(banner, layout);
 }
 
-async function initCurricula(){
-  setDebug('Loading curriculum manifest...');
+async function initCurricula() {
+    setDebug('Loading curriculum manifest...');
 
-  const embeddedFound = mergeEmbeddedCurricula();
-  if(embeddedFound){
-    applyManifest(manifestFromCurriculumMap());
-    setDebug('Embedded curricula loaded. Select your program.');
-  }
+    const embeddedFound = mergeEmbeddedCurricula();
+    if (embeddedFound) {
+        applyManifest(manifestFromCurriculumMap());
+        setDebug('Embedded curricula loaded. Select your program.');
+    }
 
-  const loaded = await loadManifest();
-  if(loaded){
-    applyManifest(loaded);
-    setDebug('Manifest loaded. Select your program.');
-  } else if(!embeddedFound){
-    setDebug('Manifest not found; using embedded dropdowns. To enable dynamic curricula, create index.json in this folder.');
-    showManifestWarning();
-  }
+    const loaded = await loadManifest();
+    if (loaded) {
+        applyManifest(loaded);
+        setDebug('Manifest loaded. Select your program.');
+    } else if (!embeddedFound) {
+        setDebug('Manifest not found; using embedded dropdowns. To enable dynamic curricula, create index.json in this folder.');
+        showManifestWarning();
+    }
 }
