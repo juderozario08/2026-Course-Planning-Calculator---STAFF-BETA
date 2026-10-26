@@ -15,7 +15,7 @@ function standingCheck(isClear) {
 }
 
 // Step 2 -> Step 3: load and render the selected program's curriculum.
-async function showCourses() {
+function showCourses() {
     const program = byId('programSelect').value;
     const admitYear = byId('admitYearSelect').value;
 
@@ -24,19 +24,7 @@ async function showCourses() {
         return;
     }
 
-    console.log('showCourses called with', { program, admitYear });
-    console.log('Available curriculum keys:', Object.keys(curriculumMap).slice(0, 50));
-    setDebug('Selected: ' + program + ':' + admitYear);
-
-    let rendered = false;
-    try {
-        rendered = await renderCurriculumIfAvailable(program, admitYear);
-    } catch (e) {
-        console.warn('render error', e);
-    }
-    // With a manifest, explain what's missing; without one, fall back to the
-    // static checklist already in index.html.
-    if (!rendered && manifest) renderCurriculumNotFound(program, admitYear);
+    if (!renderCurriculum(program, admitYear)) renderCurriculumNotFound(program, admitYear);
 
     hide('step2');
     show('step3');

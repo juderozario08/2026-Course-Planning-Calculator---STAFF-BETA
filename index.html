@@ -1,179 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Engineering Spring/Summer 2026 Course Planning Calculator</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <title>Engineering Spring/Summer 2026 Course Planning Calculator</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
-  <header class="main-header-bar">
-    <div class="main-header-left">
-      <img class="site-logo" src="assets/fyeo-logo.png" alt="FYEO Logo" />
-      <span class="main-header-title">Engineering Spring/Summer 2026 Course Planning Calculator</span>
+    <header class="main-header-bar">
+        <div class="main-header-left">
+            <img class="site-logo" src="assets/fyeo-logo.png" alt="FYEO Logo" />
+            <span class="main-header-title">Engineering Spring/Summer 2026 Course Planning Calculator</span>
+        </div>
+        <div class="main-header-actions">
+            <button class="btn btn-yellow" data-href="https://www.torontomu.ca/calendar/2026-2027/dates/">📅 Significant
+                Dates Calendar</button>
+            <button class="btn btn-yellow" data-href="https://www.torontomu.ca/first-year-engineering-office/">📍
+                First-Year Engineering Office</button>
+        </div>
+    </header>
+
+    <div class="layout">
+
+        <aside class="left-sidebar">
+            <div class="sidebar-card">
+                <h2 class="sidebar-heading"><span aria-hidden="true">☀️</span>Spring/Summer Quick Links</h2>
+                <button class="btn btn-yellow"
+                    data-href="https://www.torontomu.ca/engineering-architectural-science/programs/undergraduate-programs/transition-program/">Spring/Summer
+                    Engineering Transition Program</button>
+                <button class="btn btn-yellow"
+                    data-href="https://www.torontomu.ca/student-life-and-learning/learning-support/math-support/">Math
+                    Tutoring</button>
+                <button class="btn btn-yellow" data-href="https://www.cs.torontomu.ca/~h9saini/FYEO/gpa/ccal.php">TMU
+                    GPA Scale</button>
+            </div>
+
+            <div class="sidebar-card">
+                <h2 class="sidebar-heading"><span aria-hidden="true">🎓</span>Advising &amp; Tools</h2>
+                <button class="btn btn-blue" data-href="https://www.youtube.com/watch?v=hTO9H4SxP4s">How to View Your
+                    Advisement Report</button>
+                <button class="btn btn-blue"
+                    data-href="https://www.torontomu.ca/myservicehub-support/students/academics/unofficial-transcript/">How
+                    to Generate Your Unofficial Transcript</button>
+                <button class="btn btn-blue"
+                    data-href="https://www.torontomu.ca/myservicehub-support/students/academics/how-to-enrol/">How to
+                    Add a Course</button>
+                <button class="btn btn-blue"
+                    data-href="https://www.torontomu.ca/servicehub/news/2025/05/spring-summer-2025/">Any additional
+                    Spring/Summer supports and services</button>
+            </div>
+
+            <div class="sidebar-card store-picker">
+                <h2 class="sidebar-heading"><span aria-hidden="true">📱</span>FYEng Mobile App</h2>
+                <label for="fyengStore">Download the app</label>
+                <select id="fyengStore">
+                    <option value="">-- Choose store --</option>
+                    <option value="https://apps.apple.com/ca/app/fyeng-mobile/id6749859039">App Store</option>
+                    <option value="https://play.google.com/store/apps/details?id=com.fyengtmu.fyeng">Google Play
+                    </option>
+                </select>
+            </div>
+        </aside>
+
+        <main class="main-container">
+            <div class="main-inner">
+                <div class="debug-bar">
+                    <span id="debugInfo" class="debug-info">Debug: no action yet</span>
+                </div>
+
+                <div class="main-header">
+                    <button id="backButton" class="back-btn hidden" onclick="goBack()">← Back</button>
+                    <h1>Engineering Spring/Summer 2026 Course Planning Calculator</h1>
+                </div>
+
+                <!-- Progress indicator; js/navigation.js highlights the current step -->
+                <ol class="stepper" id="stepper">
+                    <li data-step="1"><span>1</span>Standing</li>
+                    <li data-step="2"><span>2</span>Program</li>
+                    <li data-step="3"><span>3</span>Courses</li>
+                    <li data-step="4"><span>4</span>Results</li>
+                </ol>
+
+                <!-- STEP 1: Standing -->
+                <div id="step1" class="section">
+                    <h2>Standing Verification</h2>
+                    <p class="question">Is your academic standing clear?</p>
+                    <div class="choice-row">
+                        <button onclick="standingCheck(true)">Yes</button>
+                        <button class="btn-blue" onclick="standingCheck(false)">No</button>
+                    </div>
+                    <p class="hint">Check your unofficial transcript to confirm and/or meet with your program advisor.
+                    </p>
+                    <p class="callout-row">
+                        <span class="callout-link">
+                            <span class="arrow-mark">→</span>
+                            <a id="transcriptCallout"
+                                href="https://www.torontomu.ca/myservicehub-support/students/academics/unofficial-transcript/"
+                                target="_blank" rel="noopener">View unofficial transcript</a>
+                        </span>
+                    </p>
+                    <div id="contactDept" class="hidden warning">Please consult with your program department for further
+                        guidance.</div>
+                </div>
+
+                <!-- STEP 2: Program + admit year (options filled from data/programs.js) -->
+                <div id="step2" class="section hidden">
+                    <h2>Program Identification</h2>
+
+                    <h3>Select your program:</h3>
+                    <select id="programSelect" class="form-select"></select>
+
+                    <h3 class="year-heading">Select your admit year</h3>
+                    <label for="admitYearSelect" class="form-label">Admit year</label>
+                    <select id="admitYearSelect" class="form-select"></select>
+
+                    <p class="admit-year-help">Not sure what your initial admit year was? Refer to your unofficial
+                        transcript or view your advisement report. <a id="advisementCallout"
+                            href="https://www.youtube.com/watch?v=hTO9H4SxP4s" target="_blank" rel="noopener">View
+                            advisement report (video)</a></p>
+
+                    <button onclick="showCourses()">Continue</button>
+                </div>
+
+                <!-- STEP 3: Completed courses (checklist rendered by js/curriculum.js) -->
+                <div id="step3" class="section hidden"></div>
+
+                <!-- STEP 4: Results -->
+                <div id="step4" class="section hidden">
+                    <h2>4. Automated Course Eligibility Mapping</h2>
+                    <div id="eligibleCourses"></div>
+                </div>
+
+                <!-- STEP 5: Load guidance -->
+                <div id="step5" class="section hidden">
+                    <h2>5. Course Load Guidance</h2>
+                    <div class="popup">Spring/Summer courses run in a 6-week compressed format. Students are strongly
+                        encouraged to take no more than 2 courses per term due to intensity.</div>
+                </div>
+            </div>
+        </main>
+
     </div>
-    <div class="main-header-actions">
-      <button class="btn btn-yellow" data-href="https://www.torontomu.ca/calendar/2026-2027/dates/">📅 Significant Dates Calendar</button>
-      <button class="btn btn-yellow" data-href="https://www.torontomu.ca/first-year-engineering-office/">📍 First-Year Engineering Office</button>
-    </div>
-  </header>
 
-  <div class="layout">
-
-    <aside class="left-sidebar">
-      <div class="sidebar-card">
-        <h2 class="sidebar-heading"><span aria-hidden="true">☀️</span>Spring/Summer Quick Links</h2>
-        <button class="btn btn-yellow" data-href="https://www.torontomu.ca/engineering-architectural-science/programs/undergraduate-programs/transition-program/">Spring/Summer Engineering Transition Program</button>
-        <button class="btn btn-yellow" data-href="https://www.torontomu.ca/student-life-and-learning/learning-support/math-support/">Math Tutoring</button>
-        <button class="btn btn-yellow" data-href="https://www.cs.torontomu.ca/~h9saini/FYEO/gpa/ccal.php">TMU GPA Scale</button>
-      </div>
-
-      <div class="sidebar-card">
-        <h2 class="sidebar-heading"><span aria-hidden="true">🎓</span>Advising &amp; Tools</h2>
-        <button class="btn btn-blue" data-href="https://www.youtube.com/watch?v=hTO9H4SxP4s">How to View Your Advisement Report</button>
-        <button class="btn btn-blue" data-href="https://www.torontomu.ca/myservicehub-support/students/academics/unofficial-transcript/">How to Generate Your Unofficial Transcript</button>
-        <button class="btn btn-blue" data-href="https://www.torontomu.ca/myservicehub-support/students/academics/how-to-enrol/">How to Add a Course</button>
-        <button class="btn btn-blue" data-href="https://www.torontomu.ca/servicehub/news/2025/05/spring-summer-2025/">Any additional Spring/Summer supports and services</button>
-      </div>
-
-      <div class="sidebar-card store-picker">
-        <h2 class="sidebar-heading"><span aria-hidden="true">📱</span>FYEng Mobile App</h2>
-        <label for="fyengStore">Download the app</label>
-        <select id="fyengStore">
-          <option value="">-- Choose store --</option>
-          <option value="https://apps.apple.com/ca/app/fyeng-mobile/id6749859039">App Store</option>
-          <option value="https://play.google.com/store/apps/details?id=com.fyengtmu.fyeng">Google Play</option>
-        </select>
-      </div>
-    </aside>
-
-    <main class="main-container">
-      <div class="main-inner">
-        <div class="debug-bar">
-          <span id="debugInfo" class="debug-info">Debug: no action yet</span>
-        </div>
-
-        <div class="main-header">
-          <button id="backButton" class="back-btn hidden" onclick="goBack()">← Back</button>
-          <h1>Engineering Spring/Summer 2026 Course Planning Calculator</h1>
-        </div>
-
-        <!-- Progress indicator; js/navigation.js highlights the current step -->
-        <ol class="stepper" id="stepper">
-          <li data-step="1"><span>1</span>Standing</li>
-          <li data-step="2"><span>2</span>Program</li>
-          <li data-step="3"><span>3</span>Courses</li>
-          <li data-step="4"><span>4</span>Results</li>
-        </ol>
-
-        <!-- STEP 1: Standing -->
-        <div id="step1" class="section">
-          <h2>Standing Verification</h2>
-          <p class="question">Is your academic standing clear?</p>
-          <div class="choice-row">
-            <button onclick="standingCheck(true)">Yes</button>
-            <button class="btn-blue" onclick="standingCheck(false)">No</button>
-          </div>
-          <p class="hint">Check your unofficial transcript to confirm and/or meet with your program advisor.</p>
-          <p class="callout-row">
-            <span class="callout-link">
-              <span class="arrow-mark">→</span>
-              <a id="transcriptCallout" href="https://www.torontomu.ca/myservicehub-support/students/academics/unofficial-transcript/" target="_blank" rel="noopener">View unofficial transcript</a>
-            </span>
-          </p>
-          <div id="contactDept" class="hidden warning">Please consult with your program department for further guidance.</div>
-        </div>
-
-        <!-- STEP 2: Program + admit year.
-             Options below are a fallback; js/curriculum.js replaces them from
-             the bundle or data/curricula/index.json. -->
-        <div id="step2" class="section hidden">
-          <h2>Program Identification</h2>
-
-          <h3>Select your program:</h3>
-          <select id="programSelect" class="form-select">
-            <option value="">-- Choose your program --</option>
-            <option value="Aerospace">Aerospace Engineering</option>
-            <option value="Biomedical">Biomedical Engineering</option>
-            <option value="Chemical">Chemical Engineering Co-op</option>
-            <option value="Civil">Civil Engineering</option>
-            <option value="Computer">Computer Engineering</option>
-            <option value="Electrical">Electrical Engineering</option>
-            <option value="Industrial">Industrial Engineering</option>
-            <option value="Mechanical">Mechanical Engineering</option>
-            <option value="Mechatronics">Mechatronics Engineering</option>
-          </select>
-
-          <h3 class="year-heading">Select your admit year</h3>
-          <label for="admitYearSelect" class="form-label">Admit year</label>
-          <select id="admitYearSelect" class="form-select">
-            <option value="">-- Select admit year --</option>
-            <option value="2019">2019</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-            <option value="2026" selected>2026</option>
-          </select>
-
-          <p class="admit-year-help">Not sure what your initial admit year was? Refer to your unofficial transcript or view your advisement report. <a id="advisementCallout" href="https://www.youtube.com/watch?v=hTO9H4SxP4s" target="_blank" rel="noopener">View advisement report (video)</a></p>
-
-          <button onclick="showCourses()">Continue</button>
-        </div>
-
-        <!-- STEP 3: Completed courses.
-             Replaced by the selected curriculum (js/curriculum.js); this static
-             checklist only shows when no curriculum data can be loaded. -->
-        <div id="step3" class="section hidden">
-          <h2>Curriculum Required Courses</h2>
-          <p>Select all courses completed with a D- or higher, or approved credit.</p>
-          <p class="muted">Not sure if you’ve ever been issued a credit and/or Course Substitution/Directive? Refer to your Advisement Report or reach out to your program department.</p>
-
-          <h3>First Year – Fall</h3>
-          <div class="course-grid">
-            <label><input type="checkbox" value="CEN100"> CEN100</label>
-            <label><input type="checkbox" value="CHY102"> CHY102</label>
-            <label><input type="checkbox" value="MTH140"> MTH140</label>
-            <label><input type="checkbox" value="PCS211"> PCS211</label>
-          </div>
-
-          <h3>First Year – Winter</h3>
-          <div class="course-grid">
-            <label><input type="checkbox" value="CEN199"> CEN199</label>
-            <label><input type="checkbox" value="MTH141"> MTH141</label>
-          </div>
-
-          <button onclick="calculateEligibility()">Calculate Spring/Summer Eligibility</button>
-        </div>
-
-        <!-- STEP 4: Results -->
-        <div id="step4" class="section hidden">
-          <h2>4. Automated Course Eligibility Mapping</h2>
-          <div id="eligibleCourses"></div>
-        </div>
-
-        <!-- STEP 5: Load guidance -->
-        <div id="step5" class="section hidden">
-          <h2>5. Course Load Guidance</h2>
-          <div class="popup">Spring/Summer courses run in a 6-week compressed format. Students are strongly encouraged to take no more than 2 courses per term due to intensity.</div>
-        </div>
-      </div>
-    </main>
-
-  </div>
-
-  <!-- Classic scripts (not modules) so the page also works from file://.
-       Order matters: later scripts use globals from earlier ones. -->
-  <script src="data/curricula.bundle.js"></script>
-  <script src="js/dom.js"></script>
-  <script src="js/course-info.js"></script>
-  <script src="js/curriculum.js"></script>
-  <script src="js/eligibility.js"></script>
-  <script src="js/navigation.js"></script>
-  <script src="js/main.js"></script>
+    <!-- Classic scripts (not modules) so the page also works from file://.
+Order matters: later scripts use globals from earlier ones. -->
+    <script src="data/courses.js"></script>
+    <script src="data/programs.js"></script>
+    <script src="js/dom.js"></script>
+    <script src="js/curriculum.js"></script>
+    <script src="js/eligibility.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/main.js"></script>
 </body>
+
 </html>

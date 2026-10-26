@@ -1,4 +1,4 @@
-// Page wiring: sidebar links, saved program choice and startup loading.
+// Page wiring: sidebar links, saved program choice and startup.
 
 const SAVED_PROGRAM_KEY = 'tmu_selected_program_v1';
 
@@ -30,7 +30,7 @@ function initStorePicker() {
 
 function initProgramSelect() {
     byId('programSelect').addEventListener('change', function() {
-        if (manifest) updateAdmitYearsForProgram(this.value);
+        updateAdmitYearsForProgram(this.value);
         saveProgramChoice();
     });
     loadSavedProgram();

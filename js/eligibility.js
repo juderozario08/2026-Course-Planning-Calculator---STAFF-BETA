@@ -26,7 +26,7 @@ function courseLevel(code) {
 }
 
 function isEligible(code, rawValue, completed) {
-    const info = courseInfoMap[code] || courseInfoMap[rawValue] || null;
+    const info = COURSES[code] || COURSES[rawValue] || null;
     const parsed = parsePrereqs(info && info.prereqs ? info.prereqs : '');
 
     if (parsed.mode === 'none') {

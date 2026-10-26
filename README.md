@@ -7,63 +7,50 @@ Spring/Summer courses they're eligible for.
 ## Project layout
 
 ```
-index.html                 Page markup only
-css/styles.css             All styles
-js/                        Classic scripts, loaded in this order:
-  dom.js                     small DOM helpers (byId, show/hide, setDebug…)
-  course-info.js             course details + prerequisites (courseInfoMap)
-  curriculum.js              loads curricula, fills dropdowns, renders Step 3
-  eligibility.js             prerequisite parsing + eligibility calculation
-  navigation.js              step flow, Back button, browser-back handling
-  main.js                    page wiring and startup
-assets/fyeo-logo.png       Logo
-data/curricula/            One JSON file per program/admit year + index.json
-data/curricula.bundle.js   Generated: all curricula embedded for file:// use
-scripts/                   Python generators for the bundle and index.json
+index.html            Page markup only
+css/styles.css        All styles
+data/courses.js       Course catalog: every course defined once (title, prereqs, …)
+data/programs.js      Each program's curriculum versions, as lists of course codes
+js/                   Classic scripts, loaded in this order:
+  dom.js                small DOM helpers (byId, show/hide, setDebug…)
+  curriculum.js         fills the dropdowns, renders the Step 3 checklist
+  eligibility.js        prerequisite parsing + eligibility calculation
+  navigation.js         step flow, Back button, stepper
+  main.js               page wiring and startup
+assets/fyeo-logo.png  Logo
 ```
 
-The JS files are plain `<script>` tags (not ES modules) on purpose, so the page
-still works when `index.html` is opened directly from disk.
+Everything is plain `<script>` files (no build step, no server needed), so the
+page works both when hosted and when `index.html` is opened directly.
 
 ## Running locally
 
-Either open `index.html` directly (double-click). This uses the embedded bundle.
+Open `index.html` in a browser. That's it.
 
-Or serve the folder (recommended):
+## Updating curricula
 
-```sh
-python3 -m http.server 8000
-# open http://localhost:8000/
+**New intake year, curriculum unchanged** — add the year to the existing
+version's `years` list in `data/programs.js`:
+
+```js
+Biomedical: [
+    {
+        years: [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027],
+        semesters: [ ... ],
+    },
+],
 ```
 
-## Adding or updating a curriculum
+**Curriculum changed** — add a new version to that program with its own
+`years` and `semesters` (copy the previous version and edit it). Remove the
+year from the old version's list.
 
-1. Add/edit `data/curricula/<Program>-<Year>.json`, e.g. `Aerospace-2026.json`.
-   `Program` must match the program dropdown value (`Aerospace`, `Biomedical`,
-   `Computer`, …). Shape:
+**New course** — add it once to `data/courses.js`, then reference its code in
+`data/programs.js`. To show a note after the title for one program only,
+write it after the code: `'AER626 (Aircraft stream elective)'`.
 
-   ```json
-   [
-     { "title": "1st Semester (Required)", "courses": [ { "code": "CEN100", "title": "Introduction to Engineering" } ] }
-   ]
-   ```
+**Prerequisites** for the eligibility calculator live in `data/courses.js`
+(`prereqs`, free text such as `'MTH 140 and MTH 141'`).
 
-2. Regenerate the manifest and bundle (both can be run from any directory):
-
-   ```sh
-   python3 scripts/generate_index.py
-   python3 scripts/generate_bundle.py
-   ```
-
-   The bundle is loaded first, so **always regenerate it after editing JSON**,
-   otherwise the page keeps showing the old data.
-
-Course prerequisites used by the eligibility calculator live in
-`js/course-info.js` (`courseInfoMap`).
-
-## Troubleshooting
-
-- The status pill under the top bar shows what was loaded (e.g.
-  `Rendering: Aerospace:2026`).
-- If a red notice says curricula couldn't be loaded, the bundle is missing and
-  the page was opened via file:// — regenerate the bundle or serve over HTTP.
+If you add a new latest year, also update `DEFAULT_YEAR` in
+`js/curriculum.js`.
