@@ -438,6 +438,24 @@ select:focus-visible {
     accent-color: var(--accent)
 }
 
+/* "Outline" link to the course's TMU calendar page */
+.course-grid .outline-link {
+    flex-shrink: 0;
+    margin-left: auto;
+    padding: 0 8px;
+    border-radius: 999px;
+    background: var(--sidebar-bg);
+    color: var(--blue);
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.8;
+    text-decoration: none;
+}
+
+.course-grid .outline-link:hover {
+    text-decoration: underline;
+}
+
 .info-btn {
     background: #f1f5f9;
     border: 1px solid #d1d5db;

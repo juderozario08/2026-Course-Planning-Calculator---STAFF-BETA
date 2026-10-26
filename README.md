@@ -126,8 +126,22 @@ const COURSES = {
 | `title` | yes | Shown after the code in the checklist |
 | `prereqs` | no | **Drives eligibility.** Free text, see [below](#how-eligibility-is-calculated) |
 | `coreqs`, `antireqs`, `customRequisites`, `description` | no | Reference only; not currently shown on the page |
+| `noOutline` | no | `true` hides the "Outline" link when the calendar has no page for the course |
 
 - Leave a field out rather than writing `'None'`.
+- Every course in the checklist gets an **Outline** link to its TMU calendar
+  page, built from two settings at the top of `courses.js`:
+
+  ```js
+  const CALENDAR_YEAR = '2026-2027';
+  const SUBJECT_PATHS = { MTH: 'mathematics', CHE: 'chemical-engineering', ... };
+  // MTH140 -> https://www.torontomu.ca/calendar/2026-2027/courses/mathematics/MTH/140/
+  ```
+
+  Part-B capstones (e.g. `COE70B`) link to the part-A page, which is how the
+  calendar lists them. A course with a **new subject prefix** needs an entry in
+  `SUBJECT_PATHS`. Copy the path from any link to that subject's courses on a
+  calendar page. Without it the course just has no link.
 - Keep entries in alphabetical order by code so they're easy to find.
 - Two-term capstones are split into part A and part B entries, e.g. `COE70A`
   and `COE70B`. The calendar writes them as `COE 70A/B`.
@@ -266,11 +280,16 @@ When the new calendar is published (e.g. 2027-2028):
    | File | What to change |
    |---|---|
    | `js/curriculum.js` | `DEFAULT_YEAR` (the year pre-selected in the dropdown) |
+   | `data/courses.js` | `CALENDAR_YEAR` (used by every "Outline" link), e.g. `'2027-2028'` |
    | `index.html` | Page `<title>`, the header title and the `<h1>`: "Spring/Summer **2026**" |
    | `index.html` | "Significant Dates Calendar" link: `/calendar/2026-2027/dates/` |
    | `index.html` | "Any additional Spring/Summer supports" link (currently a 2025 news post) |
 
-   Search for the old year to catch everything: `grep -rn 2026 index.html js/`.
+   Search for the old year to catch everything: `grep -rn 2026 index.html js/ data/courses.js`.
+
+   After changing `CALENDAR_YEAR`, open a few Outline links to confirm they
+   load. If a course has been dropped from the new calendar, its link will
+   404; add `noOutline: true` to that course.
 6. **Check your changes** (next sections), then commit and open a pull request.
 
 ---

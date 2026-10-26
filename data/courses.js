@@ -5,6 +5,42 @@
 //                     e.g. 'MTH 140 and MTH 141' or 'PCS 110 or PCS 125'.
 //                     Omit when there are none.
 //   coreqs, antireqs, customRequisites, description   optional reference info
+//   noOutline         true when the TMU calendar has no page for the course,
+//                     so no "Outline" link is shown
+
+// "Outline" links point to the course's page in this TMU calendar year:
+//   https://www.torontomu.ca/calendar/<CALENDAR_YEAR>/courses/<subject path>/<SUBJECT>/<number>/
+const CALENDAR_YEAR = '2026-2027';
+
+// Calendar URL path for each course subject (e.g. MTH -> mathematics).
+const SUBJECT_PATHS = {
+    AER: 'aerospace',
+    BLG: 'biology',
+    BME: 'biomedical-engineering',
+    CEN: 'common-engineering',
+    CHE: 'chemical-engineering',
+    CHY: 'chemistry',
+    CMN: 'communication',
+    COE: 'computer-engineering',
+    CPS: 'computer-science',
+    CVL: 'civil-engineering',
+    ECN: 'economics',
+    EES: 'electrical-engineering',
+    ELE: 'electrical-engineering',
+    EMS: 'engineering-management-science',
+    ENG: 'english',
+    GEO: 'geography',
+    HST: 'history',
+    IND: 'industrial-engineering',
+    MEC: 'mechanical-engineering',
+    MTE: 'mechatronics',
+    MTH: 'mathematics',
+    MTL: 'mechanical-engineering',
+    PCS: 'physics',
+    PHL: 'philosophy',
+    POL: 'politics-and-public-administration',
+    PSY: 'psychology',
+};
 
 const COURSES = {
     AER222: { title: 'Engineering Design and Graphical Communication' },
@@ -148,7 +184,7 @@ const COURSES = {
         description: 'Chemical kinetics, rate laws, kinetics in batch and flow systems, reactor design for ideal reactors and networks, non-isothermal reactors, and catalytic reactors. Weekly Contact: Lecture: 3 hrs; Tutorial: 2 hrs. GPA Weight: 1.00; Billing Units: 1.',
     },
     CHE315: { title: 'Unit Operations Laboratory I' },
-    CHE316: { title: 'Unit Operations Laboratory I' },
+    CHE316: { title: 'Unit Operations Laboratory I', noOutline: true },
     CHE318: { title: 'Separation Processes' },
     CHE319: {
         title: 'Process Modeling and Simulation',
@@ -306,8 +342,8 @@ const COURSES = {
     ELE70A: { title: 'Electrical Engineering Capstone Design (part A)' },
     ELE70B: { title: 'Electrical Engineering Capstone Design (part B)' },
     ELE754: { title: 'Power Electronics' },
-    ELE758: { title: 'Electrical Systems / Digital Systems Engineering' },
-    ELE768: { title: 'Networks/Advanced Topics' },
+    ELE758: { title: 'Electrical Systems / Digital Systems Engineering', noOutline: true },
+    ELE768: { title: 'Networks/Advanced Topics', noOutline: true },
     EMS201: {
         title: 'Entrepreneurship and Innovation Management',
         description: 'Illustrates how managers implement innovation in their areas of responsibility. Covers leadership, entrepreneurial thinking, creativity, and approaches to managing change for new ventures or intra-company innovation. Weekly Contact: Lecture: 3 hrs. GPA Weight: 1.00; Billing Units: 1.',
@@ -347,7 +383,7 @@ const COURSES = {
     IND600: { title: 'Systems Modeling and Simulation' },
     IND604: { title: 'Operations Research II' },
     IND605: { title: 'Experimental Design and Quality Assurance' },
-    IND606: { title: 'Experimental Design and Quality Assurance' },
+    IND606: { title: 'Experimental Design and Quality Assurance', noOutline: true },
     IND708: { title: 'Information Systems' },
     IND70A: { title: 'Industrial Systems Design (part A)' },
     IND70B: { title: 'Industrial Systems Design (part B)' },
@@ -459,11 +495,11 @@ const COURSES = {
     MTE602: { title: 'Introduction to Robotics' },
     MTE603: { title: 'Computer Structures and Real-Time Systems' },
     MTE604: { title: 'Electromechanical System Modelling and Design' },
-    MTE617: { title: 'Manufacturing System Controls' },
+    MTE617: { title: 'Manufacturing System Controls', noOutline: true },
     MTE701: { title: 'Real-Time Digital Control Systems Design' },
     MTE70A: { title: 'Mechatronics Capstone Design (part A)' },
     MTE70B: { title: 'Mechatronics Capstone Design (part B)' },
-    MTE713: { title: 'Project Management' },
+    MTE713: { title: 'Project Management', noOutline: true },
     MTE751: { title: 'Measurements, Sensors and Instruments' },
     MTE801: { title: 'Hardware in the Loop and RCP' },
     MTE811: { title: 'Design of Modern Control Systems' },

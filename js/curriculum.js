@@ -65,13 +65,31 @@ function parseCourseEntry(entry) {
     return { code, label };
 }
 
+// The course's page in the TMU calendar, or null when there isn't one
+// (placeholders, unknown subjects, courses marked noOutline).
+function courseOutlineUrl(code) {
+    const course = COURSES[code];
+    const subject = code.slice(0, 3);
+    const number = code.slice(3);
+    if (!course || course.noOutline || !SUBJECT_PATHS[subject] || !/^\d\d[\dAB]$/.test(number)) return null;
+    // Two-term capstones (e.g. COE70A/COE70B) share one page under part A.
+    const page = number.replace(/B$/, 'A');
+    return `https://www.torontomu.ca/calendar/${CALENDAR_YEAR}/courses/${SUBJECT_PATHS[subject]}/${subject}/${page}/`;
+}
+
+function outlineLinkHtml(code) {
+    const url = courseOutlineUrl(code);
+    if (!url) return '';
+    return ' <a class="outline-link" href="' + url + '" target="_blank" rel="noopener">Outline</a>';
+}
+
 function curriculumChecklistHtml(semesters) {
     let html = CHECKLIST_INTRO;
     semesters.forEach(semester => {
         html += '<h3 class="group-title">' + semester.title + '</h3>';
         html += '<div class="course-grid">';
         semester.courses.map(parseCourseEntry).forEach(({ code, label }) => {
-            html += '<label><input type="checkbox" value="' + code + '"> ' + label + '</label>';
+            html += '<label><input type="checkbox" value="' + code + '"> ' + label + outlineLinkHtml(code) + '</label>';
         });
         html += '</div>';
     });
