@@ -54,15 +54,13 @@ function updateAdmitYearsForProgram(program) {
     yearSel.value = years.includes(DEFAULT_YEAR) ? DEFAULT_YEAR : (years[0] || '');
 }
 
-// 'AER626 (Aircraft stream elective)' -> code 'AER626' and the label
-// 'AER626 Applied Finite Elements (Aircraft stream elective)'.
+// 'AER626 (Aircraft stream elective)' -> code 'AER626' and the name
+// 'Applied Finite Elements (Aircraft stream elective)'.
 function parseCourseEntry(entry) {
     const [, code, note] = entry.match(/^(\S+)(?: (.*))?$/);
     const course = COURSES[code];
-    let label = code;
-    if (course) label += ' ' + course.title;
-    if (note) label += ' ' + note;
-    return { code, label };
+    const name = [course && course.title, note].filter(Boolean).join(' ');
+    return { code, name };
 }
 
 // The course's page in the TMU calendar, or null when there isn't one
@@ -88,8 +86,10 @@ function curriculumChecklistHtml(semesters) {
     semesters.forEach(semester => {
         html += '<h3 class="group-title">' + semester.title + '</h3>';
         html += '<div class="course-grid">';
-        semester.courses.map(parseCourseEntry).forEach(({ code, label }) => {
-            html += '<label><input type="checkbox" value="' + code + '"> ' + label + outlineLinkHtml(code) + '</label>';
+        semester.courses.map(parseCourseEntry).forEach(({ code, name }) => {
+            html += '<label><input type="checkbox" value="' + code + '">' +
+                '<span class="course-name"><span class="course-code">' + code + '</span> ' + name + '</span>' +
+                outlineLinkHtml(code) + '</label>';
         });
         html += '</div>';
     });
